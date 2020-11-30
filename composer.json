@@ -1,5 +1,5 @@
 {
-    "name": "everon/logger-plugin-gelf",
+    "name": "everon/logger-gelf",
     "description": "Logger plugin with Gelf/Graylog handler for EveronLogger",
     "minimum-stability": "stable",
     "license": "MIT",
