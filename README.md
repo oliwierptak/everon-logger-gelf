@@ -1,16 +1,16 @@
 # EveronLoggerGelf
 
 A plugin with [Graylog2](https://github.com/bzikarsky/gelf-php) handler for [EveronLogger](https://github.com/oliwierptak/everon-logger).
+
+- GelfHttp
+- GelfTcp
+- GelfUdp
  
-## Configuration
+_Note:_ Gelf offers several transport protocols, and could be configured via related properties of `GelfLoggerPluginConfigurator`.
 
-Gelf offers several transport protocols, and could be configured via related properties of `GelfLoggerPluginConfigurator`.
+## Plugins
 
-- Configurator
-
-    `Everon\Logger\Configurator\Plugin\GelfLoggerPluginConfigurator`
-
-### HTTP Protocol
+### GelfHttp
     
 - Configurator
 
@@ -35,7 +35,7 @@ Gelf offers several transport protocols, and could be configured via related pro
   `Everon\Logger\Plugin\GelfHttp\GelfHttpLoggerPlugin`
   
 
-### TCP Protocol
+### GelfTcp
     
 - Configurator
 
@@ -59,7 +59,7 @@ Gelf offers several transport protocols, and could be configured via related pro
   `Everon\Logger\Plugin\GelfTcp\GelfTcpLoggerPlugin`
 
   
-### UDP Protocol
+### GelfUdp
     
 - Configurator
 
@@ -83,7 +83,7 @@ Gelf offers several transport protocols, and could be configured via related pro
   `Everon\Logger\Plugin\GelfUdp\GelfUdpLoggerPlugin`
   
   
-### SSL Options
+### Gelf SSL Options
 - Default Options for `GelfLoggerPluginSslOptions`
 
     ```php
