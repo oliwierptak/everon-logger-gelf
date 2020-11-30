@@ -5,7 +5,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.4",
-        "everon/logger": "@dev",
+        "everon/logger": "^1",
         "graylog2/gelf-php": "^1.6"
     },
     "require-dev": {
@@ -42,14 +42,5 @@
         "tests": "Quick tests",
         "tests-ac": "Quick AC tests",
         "tests-coverage": "Tests with coverage"
-    },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../everon-logger/",
-            "options": {
-                "symlink": false
-            }
-        }
-    ]
+    }
 }
