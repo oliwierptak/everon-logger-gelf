@@ -127,7 +127,6 @@ _Note:_ Gelf offers several transport protocols, and could be configured via rel
 ## Requirements
 
 - PHP v7.4
-- [EveronLogger](https://github.com/oliwierptak/everon-logger)
 
 ## Installation
 
