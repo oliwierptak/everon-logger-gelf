@@ -126,7 +126,9 @@ _Note:_ Gelf offers several transport protocols, and could be configured via rel
 
 ## Requirements
 
-- PHP v7.4
+- PHP v8.x
+
+_Note_: Use v1.x for compatibility with PHP v7.4.
 
 ## Installation
 

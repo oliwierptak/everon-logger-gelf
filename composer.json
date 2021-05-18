@@ -4,15 +4,15 @@
     "minimum-stability": "stable",
     "license": "MIT",
     "require": {
-        "php": "^7.4",
-        "everon/logger": "^1",
+        "php": "^8",
+        "everon/logger": "^2",
         "graylog2/gelf-php": "^1.6"
     },
     "require-dev": {
         "ext-json": "*",
-        "phpunit/phpunit": "^9.4",
-        "popo/generator": "^3.0",
-        "symfony/var-dumper": "^5.1"
+        "phpunit/phpunit": "^9",
+        "popo/generator": "^4",
+        "symfony/var-dumper": "^5"
     },
     "autoload": {
         "psr-4": {
