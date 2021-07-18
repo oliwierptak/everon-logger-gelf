@@ -30,7 +30,7 @@ class GelfHttpLoggerPlugin extends AbstractGelfLoggerPlugin
         );
     }
 
-    protected function validate(): void
+    public function validate(): void
     {
         parent::validate();
 

@@ -29,7 +29,7 @@ class GelfTcpLoggerPlugin extends AbstractGelfLoggerPlugin
         );
     }
 
-    protected function validate(): void
+    public function validate(): void
     {
         parent::validate();
 

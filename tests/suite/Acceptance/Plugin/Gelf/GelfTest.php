@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace EveronLoggerTests\Suit\Acceptance\Plugin\Gelf;
+namespace EveronLoggerTests\Suite\Acceptance\Plugin\Gelf;
 
 use Everon\Logger\Configurator\Plugin\GelfLoggerPluginConfigurator;
 use Everon\Logger\Configurator\Plugin\LoggerConfigurator;
@@ -20,7 +20,7 @@ class GelfTest extends TestCase
 
     public function test_gelf_http(): void
     {
-        $gelfPluginConfigurator = (new GelfLoggerPluginConfigurator())->getHttpConfigurator()
+        $gelfPluginConfigurator = (new GelfLoggerPluginConfigurator())->requireHttpConfigurator()
             ->setLogLevel('info')
             ->setHost($this->graylogHost)
             ->setPort(12202);
@@ -40,13 +40,13 @@ class GelfTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessageMatches('@^Failed to create socket-client for ssl://(.*)@');
 
-        $gelfPluginConfigurator = (new GelfLoggerPluginConfigurator())->getHttpConfigurator();
+        $gelfPluginConfigurator = (new GelfLoggerPluginConfigurator())->requireHttpConfigurator();
         $gelfPluginConfigurator
             ->setIgnoreTransportErrors(false)
             ->setLogLevel('info')
             ->setHost($this->graylogHost)
             ->setPort(12202)
-            ->getSslOptions()
+            ->requireSslOptions()
             ->setUseSsl(true);
 
         $configurator = (new LoggerConfigurator())
@@ -61,7 +61,7 @@ class GelfTest extends TestCase
 
     public function test_gelf_tcp(): void
     {
-        $gelfPluginConfigurator = (new GelfLoggerPluginConfigurator())->getTcpConfigurator()
+        $gelfPluginConfigurator = (new GelfLoggerPluginConfigurator())->requireTcpConfigurator()
             ->setLogLevel('info')
             ->setHost($this->graylogHost)
             ->setPort(5555);
@@ -78,7 +78,7 @@ class GelfTest extends TestCase
 
     public function test_gelf_udp(): void
     {
-        $gelfPluginConfigurator = (new GelfLoggerPluginConfigurator())->getUdpConfigurator()
+        $gelfPluginConfigurator = (new GelfLoggerPluginConfigurator())->requireUdpConfigurator()
             ->setLogLevel('info')
             ->setHost($this->graylogHost);
 

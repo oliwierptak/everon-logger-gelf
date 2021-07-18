@@ -17,6 +17,8 @@ abstract class AbstractGelfLoggerPlugin implements LoggerPluginInterface
 {
     protected AbstractGelfPluginConfigurator $configurator;
 
+    abstract protected function buildTransport(): AbstractTransport;
+
     public function __construct(AbstractGelfPluginConfigurator $configurator)
     {
         $this->configurator = $configurator;
@@ -34,7 +36,7 @@ abstract class AbstractGelfLoggerPlugin implements LoggerPluginInterface
         );
     }
 
-    protected function validate(): void
+    public function validate(): void
     {
         $this->configurator->requireLogLevel();
     }
@@ -49,27 +51,25 @@ abstract class AbstractGelfLoggerPlugin implements LoggerPluginInterface
         return new Publisher($transport);
     }
 
-    abstract protected function buildTransport(): AbstractTransport;
-
     protected function buildSslOptions(AbstractGelfSslPluginConfigurator $pluginConfigurator): ?SslOptions
     {
-        if (!$pluginConfigurator->getSslOptions()->useSsl()) {
+        if (!$pluginConfigurator->requireSslOptions()->useSsl()) {
             return null;
         }
 
         $sslOptions = new SslOptions();
 
         $sslOptions->setVerifyPeer(
-            $pluginConfigurator->getSslOptions()->verifyPeer()
+            $pluginConfigurator->requireSslOptions()->verifyPeer()
         );
         $sslOptions->setAllowSelfSigned(
-            $pluginConfigurator->getSslOptions()->allowSelfSigned()
+            $pluginConfigurator->requireSslOptions()->allowSelfSigned()
         );
         $sslOptions->setCaFile(
-            $pluginConfigurator->getSslOptions()->getCaFile()
+            $pluginConfigurator->requireSslOptions()->getCaFile()
         );
         $sslOptions->setCiphers(
-            $pluginConfigurator->getSslOptions()->getCiphers()
+            $pluginConfigurator->requireSslOptions()->getCiphers()
         );
 
         return $sslOptions;
