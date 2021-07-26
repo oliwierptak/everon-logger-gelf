@@ -30,9 +30,11 @@
             "vendor/bin/popo generate -c vendor/everon/logger/popo/shared-plugin.config.yml -s ./popo/everon-logger-gelf.popo.yml"
         ],
         "test": [
+            "@popo",
             "vendor/bin/phpunit --testdox --no-coverage"
         ],
         "test-ac": [
+            "@popo",
             "vendor/bin/phpunit --testdox --no-coverage --group acceptance tests/suite  /Acceptance/"
         ],
         "tests-coverage": "vendor/bin/phpunit --testdox --group acceptance,default"
