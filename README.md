@@ -129,7 +129,7 @@ _Note:_ Gelf offers several transport protocols, and could be configured via rel
 
 - PHP v8.x
 
-_Note_: Use v2.x for compatibility with PHP v8.
+_Note_: Use v2.x for compatibility with PHP v7.4.
 
 ## Installation
 
