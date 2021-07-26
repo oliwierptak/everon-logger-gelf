@@ -31,10 +31,6 @@
         ],
         "test": [
             "@popo",
-            "vendor/bin/phpunit --testdox --no-coverage"
-        ],
-        "test-ac": [
-            "@popo",
             "vendor/bin/phpunit --testdox --no-coverage --group acceptance tests/suite  /Acceptance/"
         ],
         "tests-coverage": "vendor/bin/phpunit --testdox --group acceptance,default"
