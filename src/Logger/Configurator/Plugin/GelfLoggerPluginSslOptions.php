@@ -10,16 +10,12 @@ namespace Everon\Logger\Configurator\Plugin;
 
 use UnexpectedValueException;
 
-class GelfLoggerPluginSslOptions implements \Everon\Logger\Contract\Configurator\PluginConfiguratorInterface
+class GelfLoggerPluginSslOptions
 {
     protected const SHAPE_PROPERTIES = [
         'allowSelfSigned' => 'null|bool',
         'caFile' => 'null|string',
         'ciphers' => 'null|string',
-        'logLevel' => 'null|string',
-        'pluginClass' => 'null|string',
-        'pluginFactoryClass' => 'null|string',
-        'shouldBubble' => 'null|bool',
         'useSsl' => 'null|bool',
         'verifyPeer' => 'null|bool',
     ];
@@ -28,10 +24,6 @@ class GelfLoggerPluginSslOptions implements \Everon\Logger\Contract\Configurator
         'allowSelfSigned' => ['type' => 'bool', 'default' => false],
         'caFile' => ['type' => 'string', 'default' => null],
         'ciphers' => ['type' => 'string', 'default' => null],
-        'logLevel' => ['type' => 'string', 'default' => 'debug'],
-        'pluginClass' => ['type' => 'string', 'default' => null],
-        'pluginFactoryClass' => ['type' => 'string', 'default' => null],
-        'shouldBubble' => ['type' => 'bool', 'default' => true],
         'useSsl' => ['type' => 'bool', 'default' => false],
         'verifyPeer' => ['type' => 'bool', 'default' => true],
     ];
@@ -44,16 +36,6 @@ class GelfLoggerPluginSslOptions implements \Everon\Logger\Contract\Configurator
 
     /** List of ciphers the SSL layer may use. Formatted as specified in ciphers(1) */
     protected ?string $ciphers = null;
-
-    /** The minimum logging level at which this handler will be triggered */
-    protected ?string $logLevel = 'debug';
-    protected ?string $pluginClass = null;
-
-    /** Defines custom plugin factory to be used to create a plugin */
-    protected ?string $pluginFactoryClass = null;
-
-    /** Whether the messages that are handled can bubble up the stack or not */
-    protected ?bool $shouldBubble = true;
 
     /** Whenever to use Gelf\Transport\SslOptions */
     protected ?bool $useSsl = false;
@@ -174,145 +156,6 @@ class GelfLoggerPluginSslOptions implements \Everon\Logger\Contract\Configurator
     }
 
     /**
-     * The minimum logging level at which this handler will be triggered
-     */
-    public function setLogLevel(?string $logLevel): self
-    {
-        $this->logLevel = $logLevel; $this->updateMap['logLevel'] = true; return $this;
-    }
-
-    /**
-     * The minimum logging level at which this handler will be triggered
-     */
-    public function getLogLevel(): ?string
-    {
-        return $this->logLevel;
-    }
-
-    /**
-     * The minimum logging level at which this handler will be triggered
-     */
-    public function requireLogLevel(): string
-    {
-        if (static::METADATA['logLevel']['type'] === 'popo' && $this->logLevel === null) {
-            $popo = static::METADATA['logLevel']['default'];
-            $this->logLevel = new $popo;
-        }
-
-        if ($this->logLevel === null) {
-            throw new UnexpectedValueException('Required value of "logLevel" has not been set');
-        }
-        return $this->logLevel;
-    }
-
-    public function hasLogLevel(): bool
-    {
-        return $this->logLevel !== null || ($this->logLevel !== null && array_key_exists('logLevel', $this->updateMap));
-    }
-
-    public function setPluginClass(?string $pluginClass): self
-    {
-        $this->pluginClass = $pluginClass; $this->updateMap['pluginClass'] = true; return $this;
-    }
-
-    public function getPluginClass(): ?string
-    {
-        return $this->pluginClass;
-    }
-
-    public function requirePluginClass(): string
-    {
-        if (static::METADATA['pluginClass']['type'] === 'popo' && $this->pluginClass === null) {
-            $popo = static::METADATA['pluginClass']['default'];
-            $this->pluginClass = new $popo;
-        }
-
-        if ($this->pluginClass === null) {
-            throw new UnexpectedValueException('Required value of "pluginClass" has not been set');
-        }
-        return $this->pluginClass;
-    }
-
-    public function hasPluginClass(): bool
-    {
-        return $this->pluginClass !== null || ($this->pluginClass !== null && array_key_exists('pluginClass', $this->updateMap));
-    }
-
-    /**
-     * Defines custom plugin factory to be used to create a plugin
-     */
-    public function setPluginFactoryClass(?string $pluginFactoryClass): self
-    {
-        $this->pluginFactoryClass = $pluginFactoryClass; $this->updateMap['pluginFactoryClass'] = true; return $this;
-    }
-
-    /**
-     * Defines custom plugin factory to be used to create a plugin
-     */
-    public function getPluginFactoryClass(): ?string
-    {
-        return $this->pluginFactoryClass;
-    }
-
-    /**
-     * Defines custom plugin factory to be used to create a plugin
-     */
-    public function requirePluginFactoryClass(): string
-    {
-        if (static::METADATA['pluginFactoryClass']['type'] === 'popo' && $this->pluginFactoryClass === null) {
-            $popo = static::METADATA['pluginFactoryClass']['default'];
-            $this->pluginFactoryClass = new $popo;
-        }
-
-        if ($this->pluginFactoryClass === null) {
-            throw new UnexpectedValueException('Required value of "pluginFactoryClass" has not been set');
-        }
-        return $this->pluginFactoryClass;
-    }
-
-    public function hasPluginFactoryClass(): bool
-    {
-        return $this->pluginFactoryClass !== null || ($this->pluginFactoryClass !== null && array_key_exists('pluginFactoryClass', $this->updateMap));
-    }
-
-    /**
-     * Whether the messages that are handled can bubble up the stack or not
-     */
-    public function setShouldBubble(?bool $shouldBubble): self
-    {
-        $this->shouldBubble = $shouldBubble; $this->updateMap['shouldBubble'] = true; return $this;
-    }
-
-    /**
-     * Whether the messages that are handled can bubble up the stack or not
-     */
-    public function shouldBubble(): ?bool
-    {
-        return $this->shouldBubble;
-    }
-
-    /**
-     * Whether the messages that are handled can bubble up the stack or not
-     */
-    public function requireShouldBubble(): bool
-    {
-        if (static::METADATA['shouldBubble']['type'] === 'popo' && $this->shouldBubble === null) {
-            $popo = static::METADATA['shouldBubble']['default'];
-            $this->shouldBubble = new $popo;
-        }
-
-        if ($this->shouldBubble === null) {
-            throw new UnexpectedValueException('Required value of "shouldBubble" has not been set');
-        }
-        return $this->shouldBubble;
-    }
-
-    public function hasShouldBubble(): bool
-    {
-        return $this->shouldBubble !== null || ($this->shouldBubble !== null && array_key_exists('shouldBubble', $this->updateMap));
-    }
-
-    /**
      * Whenever to use Gelf\Transport\SslOptions
      */
     public function setUseSsl(?bool $useSsl): self
@@ -393,10 +236,6 @@ class GelfLoggerPluginSslOptions implements \Everon\Logger\Contract\Configurator
             'allowSelfSigned' => $this->allowSelfSigned,
             'caFile' => $this->caFile,
             'ciphers' => $this->ciphers,
-            'logLevel' => $this->logLevel,
-            'pluginClass' => $this->pluginClass,
-            'pluginFactoryClass' => $this->pluginFactoryClass,
-            'shouldBubble' => $this->shouldBubble,
             'useSsl' => $this->useSsl,
             'verifyPeer' => $this->verifyPeer,
         ];
@@ -463,30 +302,6 @@ class GelfLoggerPluginSslOptions implements \Everon\Logger\Contract\Configurator
         }
         catch (\Throwable $throwable) {
             $errors['ciphers'] = $throwable->getMessage();
-        }
-        try {
-            $this->requireLogLevel();
-        }
-        catch (\Throwable $throwable) {
-            $errors['logLevel'] = $throwable->getMessage();
-        }
-        try {
-            $this->requirePluginClass();
-        }
-        catch (\Throwable $throwable) {
-            $errors['pluginClass'] = $throwable->getMessage();
-        }
-        try {
-            $this->requirePluginFactoryClass();
-        }
-        catch (\Throwable $throwable) {
-            $errors['pluginFactoryClass'] = $throwable->getMessage();
-        }
-        try {
-            $this->requireShouldBubble();
-        }
-        catch (\Throwable $throwable) {
-            $errors['shouldBubble'] = $throwable->getMessage();
         }
         try {
             $this->requireUseSsl();

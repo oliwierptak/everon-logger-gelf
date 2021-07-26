@@ -11,19 +11,6 @@ EveronLogger:
       {name: udpConfigurator, type: popo, comment: "UDP related options."},
     ]}}
 
-  GelfLoggerPluginSslOptions:
-    default:
-      verifyPeer: true
-      allowSelfSigned: false
-      useSsl: false
-    property: [
-      {name: verifyPeer, type: bool, comment: "Enable certificate validation of remote party"},
-      {name: allowSelfSigned, type: bool, comment: "Allow self-signed certificates"},
-      {name: caFile, comment: "Path to custom CA"},
-      {name: ciphers, comment: "List of ciphers the SSL layer may use. Formatted as specified in ciphers(1)"},
-      {name: useSsl, type: bool, comment: "Whenever to use Gelf\\Transport\\SslOptions"},
-    ]}}
-
   GelfHttpLoggerPluginConfigurator:
     config:
       extend: \Everon\Logger\Plugin\Gelf\AbstractGelfSslPluginConfigurator::class
@@ -72,4 +59,18 @@ EveronLogger:
       {name: host, comment: "when NULL or empty default-host is used"},
       {name: port, type: int, comment: "when NULL or empty default-port is used"},
       {name: chunkSize, type: int, comment: "defaults to CHUNK_SIZE_WAN, 0 disables chunks completely"},
+    ]}}
+
+EveronLoggerGelf:
+  GelfLoggerPluginSslOptions:
+    default:
+      verifyPeer: true
+      allowSelfSigned: false
+      useSsl: false
+    property: [
+      {name: verifyPeer, type: bool, comment: "Enable certificate validation of remote party"},
+      {name: allowSelfSigned, type: bool, comment: "Allow self-signed certificates"},
+      {name: caFile, comment: "Path to custom CA"},
+      {name: ciphers, comment: "List of ciphers the SSL layer may use. Formatted as specified in ciphers(1)"},
+      {name: useSsl, type: bool, comment: "Whenever to use Gelf\\Transport\\SslOptions"},
     ]}}

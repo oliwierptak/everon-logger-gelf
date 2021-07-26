@@ -33,7 +33,7 @@
             "vendor/bin/phpunit --testdox --no-coverage"
         ],
         "test-ac": [
-            "vendor/bin/phpunit --testdox --no-coverage --group acceptance tests/suite/Acceptance/"
+            "vendor/bin/phpunit --testdox --no-coverage --group acceptance tests/suite  /Acceptance/"
         ],
         "tests-coverage": "vendor/bin/phpunit --testdox --group acceptance,default"
     },
