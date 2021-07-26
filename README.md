@@ -101,6 +101,7 @@ _Note:_ Gelf offers several transport protocols, and could be configured via rel
     use Everon\Logger\Configurator\Plugin\GelfTcpLoggerPluginConfigurator;
     use Everon\Logger\Configurator\Plugin\GelfUdpLoggerPluginConfigurator;
     use Everon\Logger\Configurator\Plugin\LoggerConfigurator;
+    use Everon\Logger\EveronLoggerFacade;
   
     $gelfHttpPluginConfigurator = (new GelfHttpLoggerPluginConfigurator)
         ->setLogLevel('debug')
@@ -128,7 +129,7 @@ _Note:_ Gelf offers several transport protocols, and could be configured via rel
 
 - PHP v8.x
 
-_Note_: Use v1.x for compatibility with PHP v7.4.
+_Note_: Use v2.x for compatibility with PHP v8.
 
 ## Installation
 
