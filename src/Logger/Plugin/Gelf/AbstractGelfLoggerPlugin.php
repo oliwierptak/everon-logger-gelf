@@ -15,13 +15,10 @@ use Monolog\Handler\HandlerInterface;
 
 abstract class AbstractGelfLoggerPlugin implements LoggerPluginInterface
 {
-    protected AbstractGelfPluginConfigurator $configurator;
-
     abstract protected function buildTransport(): AbstractTransport;
 
-    public function __construct(AbstractGelfPluginConfigurator $configurator)
+    public function __construct(protected AbstractGelfPluginConfigurator $configurator)
     {
-        $this->configurator = $configurator;
     }
 
     public function buildHandler(): HandlerInterface

@@ -64,10 +64,7 @@ class GelfLoggerPluginConfigurator
      */
     public function requireHttpConfigurator(): GelfHttpLoggerPluginConfigurator
     {
-        if (static::METADATA['httpConfigurator']['type'] === 'popo' && $this->httpConfigurator === null) {
-            $popo = static::METADATA['httpConfigurator']['default'];
-            $this->httpConfigurator = new $popo;
-        }
+        $this->setupPopoProperty('httpConfigurator');
 
         if ($this->httpConfigurator === null) {
             throw new UnexpectedValueException('Required value of "httpConfigurator" has not been set');
@@ -77,7 +74,7 @@ class GelfLoggerPluginConfigurator
 
     public function hasHttpConfigurator(): bool
     {
-        return $this->httpConfigurator !== null || ($this->httpConfigurator !== null && array_key_exists('httpConfigurator', $this->updateMap));
+        return $this->httpConfigurator !== null;
     }
 
     /**
@@ -101,10 +98,7 @@ class GelfLoggerPluginConfigurator
      */
     public function requireTcpConfigurator(): GelfTcpLoggerPluginConfigurator
     {
-        if (static::METADATA['tcpConfigurator']['type'] === 'popo' && $this->tcpConfigurator === null) {
-            $popo = static::METADATA['tcpConfigurator']['default'];
-            $this->tcpConfigurator = new $popo;
-        }
+        $this->setupPopoProperty('tcpConfigurator');
 
         if ($this->tcpConfigurator === null) {
             throw new UnexpectedValueException('Required value of "tcpConfigurator" has not been set');
@@ -114,7 +108,7 @@ class GelfLoggerPluginConfigurator
 
     public function hasTcpConfigurator(): bool
     {
-        return $this->tcpConfigurator !== null || ($this->tcpConfigurator !== null && array_key_exists('tcpConfigurator', $this->updateMap));
+        return $this->tcpConfigurator !== null;
     }
 
     /**
@@ -138,10 +132,7 @@ class GelfLoggerPluginConfigurator
      */
     public function requireUdpConfigurator(): GelfUdpLoggerPluginConfigurator
     {
-        if (static::METADATA['udpConfigurator']['type'] === 'popo' && $this->udpConfigurator === null) {
-            $popo = static::METADATA['udpConfigurator']['default'];
-            $this->udpConfigurator = new $popo;
-        }
+        $this->setupPopoProperty('udpConfigurator');
 
         if ($this->udpConfigurator === null) {
             throw new UnexpectedValueException('Required value of "udpConfigurator" has not been set');
@@ -151,7 +142,7 @@ class GelfLoggerPluginConfigurator
 
     public function hasUdpConfigurator(): bool
     {
-        return $this->udpConfigurator !== null || ($this->udpConfigurator !== null && array_key_exists('udpConfigurator', $this->updateMap));
+        return $this->udpConfigurator !== null;
     }
 
     #[\JetBrains\PhpStorm\ArrayShape(self::SHAPE_PROPERTIES)]
@@ -204,6 +195,11 @@ class GelfLoggerPluginConfigurator
         return empty($this->updateMap) === true;
     }
 
+    public function listModifiedProperties(): array
+    {
+        return array_keys($this->updateMap);
+    }
+
     public function requireAll(): self
     {
         $errors = [];
@@ -234,5 +230,13 @@ class GelfLoggerPluginConfigurator
         }
 
         return $this;
+    }
+
+    protected function setupPopoProperty($propertyName): void
+    {
+        if (static::METADATA[$propertyName]['type'] === 'popo' && $this->$propertyName === null) {
+            $popo = static::METADATA[$propertyName]['default'];
+            $this->$propertyName = new $popo;
+        }
     }
 }

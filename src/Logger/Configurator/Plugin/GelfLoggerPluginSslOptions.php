@@ -65,10 +65,7 @@ class GelfLoggerPluginSslOptions
      */
     public function requireAllowSelfSigned(): bool
     {
-        if (static::METADATA['allowSelfSigned']['type'] === 'popo' && $this->allowSelfSigned === null) {
-            $popo = static::METADATA['allowSelfSigned']['default'];
-            $this->allowSelfSigned = new $popo;
-        }
+        $this->setupPopoProperty('allowSelfSigned');
 
         if ($this->allowSelfSigned === null) {
             throw new UnexpectedValueException('Required value of "allowSelfSigned" has not been set');
@@ -78,7 +75,7 @@ class GelfLoggerPluginSslOptions
 
     public function hasAllowSelfSigned(): bool
     {
-        return $this->allowSelfSigned !== null || ($this->allowSelfSigned !== null && array_key_exists('allowSelfSigned', $this->updateMap));
+        return $this->allowSelfSigned !== null;
     }
 
     /**
@@ -102,10 +99,7 @@ class GelfLoggerPluginSslOptions
      */
     public function requireCaFile(): string
     {
-        if (static::METADATA['caFile']['type'] === 'popo' && $this->caFile === null) {
-            $popo = static::METADATA['caFile']['default'];
-            $this->caFile = new $popo;
-        }
+        $this->setupPopoProperty('caFile');
 
         if ($this->caFile === null) {
             throw new UnexpectedValueException('Required value of "caFile" has not been set');
@@ -115,7 +109,7 @@ class GelfLoggerPluginSslOptions
 
     public function hasCaFile(): bool
     {
-        return $this->caFile !== null || ($this->caFile !== null && array_key_exists('caFile', $this->updateMap));
+        return $this->caFile !== null;
     }
 
     /**
@@ -139,10 +133,7 @@ class GelfLoggerPluginSslOptions
      */
     public function requireCiphers(): string
     {
-        if (static::METADATA['ciphers']['type'] === 'popo' && $this->ciphers === null) {
-            $popo = static::METADATA['ciphers']['default'];
-            $this->ciphers = new $popo;
-        }
+        $this->setupPopoProperty('ciphers');
 
         if ($this->ciphers === null) {
             throw new UnexpectedValueException('Required value of "ciphers" has not been set');
@@ -152,7 +143,7 @@ class GelfLoggerPluginSslOptions
 
     public function hasCiphers(): bool
     {
-        return $this->ciphers !== null || ($this->ciphers !== null && array_key_exists('ciphers', $this->updateMap));
+        return $this->ciphers !== null;
     }
 
     /**
@@ -176,10 +167,7 @@ class GelfLoggerPluginSslOptions
      */
     public function requireUseSsl(): bool
     {
-        if (static::METADATA['useSsl']['type'] === 'popo' && $this->useSsl === null) {
-            $popo = static::METADATA['useSsl']['default'];
-            $this->useSsl = new $popo;
-        }
+        $this->setupPopoProperty('useSsl');
 
         if ($this->useSsl === null) {
             throw new UnexpectedValueException('Required value of "useSsl" has not been set');
@@ -189,7 +177,7 @@ class GelfLoggerPluginSslOptions
 
     public function hasUseSsl(): bool
     {
-        return $this->useSsl !== null || ($this->useSsl !== null && array_key_exists('useSsl', $this->updateMap));
+        return $this->useSsl !== null;
     }
 
     /**
@@ -213,10 +201,7 @@ class GelfLoggerPluginSslOptions
      */
     public function requireVerifyPeer(): bool
     {
-        if (static::METADATA['verifyPeer']['type'] === 'popo' && $this->verifyPeer === null) {
-            $popo = static::METADATA['verifyPeer']['default'];
-            $this->verifyPeer = new $popo;
-        }
+        $this->setupPopoProperty('verifyPeer');
 
         if ($this->verifyPeer === null) {
             throw new UnexpectedValueException('Required value of "verifyPeer" has not been set');
@@ -226,7 +211,7 @@ class GelfLoggerPluginSslOptions
 
     public function hasVerifyPeer(): bool
     {
-        return $this->verifyPeer !== null || ($this->verifyPeer !== null && array_key_exists('verifyPeer', $this->updateMap));
+        return $this->verifyPeer !== null;
     }
 
     #[\JetBrains\PhpStorm\ArrayShape(self::SHAPE_PROPERTIES)]
@@ -281,6 +266,11 @@ class GelfLoggerPluginSslOptions
         return empty($this->updateMap) === true;
     }
 
+    public function listModifiedProperties(): array
+    {
+        return array_keys($this->updateMap);
+    }
+
     public function requireAll(): self
     {
         $errors = [];
@@ -323,5 +313,13 @@ class GelfLoggerPluginSslOptions
         }
 
         return $this;
+    }
+
+    protected function setupPopoProperty($propertyName): void
+    {
+        if (static::METADATA[$propertyName]['type'] === 'popo' && $this->$propertyName === null) {
+            $popo = static::METADATA[$propertyName]['default'];
+            $this->$propertyName = new $popo;
+        }
     }
 }

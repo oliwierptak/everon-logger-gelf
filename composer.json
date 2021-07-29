@@ -27,7 +27,7 @@
     },
     "scripts": {
         "popo": [
-            "vendor/bin/popo generate -c vendor/everon/logger/popo/shared-plugin.config.yml -s ./popo/everon-logger-gelf.popo.yml"
+            "vendor/bin/popo generate -q -c vendor/everon/logger/popo/shared-plugin.config.yml -s ./popo/everon-logger-gelf.popo.yml"
         ],
         "test": [
             "@popo",

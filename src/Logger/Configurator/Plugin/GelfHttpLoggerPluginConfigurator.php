@@ -86,10 +86,7 @@ class GelfHttpLoggerPluginConfigurator extends \Everon\Logger\Plugin\Gelf\Abstra
      */
     public function requireHost(): string
     {
-        if (static::METADATA['host']['type'] === 'popo' && $this->host === null) {
-            $popo = static::METADATA['host']['default'];
-            $this->host = new $popo;
-        }
+        $this->setupPopoProperty('host');
 
         if ($this->host === null) {
             throw new UnexpectedValueException('Required value of "host" has not been set');
@@ -99,7 +96,7 @@ class GelfHttpLoggerPluginConfigurator extends \Everon\Logger\Plugin\Gelf\Abstra
 
     public function hasHost(): bool
     {
-        return $this->host !== null || ($this->host !== null && array_key_exists('host', $this->updateMap));
+        return $this->host !== null;
     }
 
     /**
@@ -123,10 +120,7 @@ class GelfHttpLoggerPluginConfigurator extends \Everon\Logger\Plugin\Gelf\Abstra
      */
     public function requireIgnoreTransportErrors(): bool
     {
-        if (static::METADATA['ignoreTransportErrors']['type'] === 'popo' && $this->ignoreTransportErrors === null) {
-            $popo = static::METADATA['ignoreTransportErrors']['default'];
-            $this->ignoreTransportErrors = new $popo;
-        }
+        $this->setupPopoProperty('ignoreTransportErrors');
 
         if ($this->ignoreTransportErrors === null) {
             throw new UnexpectedValueException('Required value of "ignoreTransportErrors" has not been set');
@@ -136,7 +130,7 @@ class GelfHttpLoggerPluginConfigurator extends \Everon\Logger\Plugin\Gelf\Abstra
 
     public function hasIgnoreTransportErrors(): bool
     {
-        return $this->ignoreTransportErrors !== null || ($this->ignoreTransportErrors !== null && array_key_exists('ignoreTransportErrors', $this->updateMap));
+        return $this->ignoreTransportErrors !== null;
     }
 
     /**
@@ -160,10 +154,7 @@ class GelfHttpLoggerPluginConfigurator extends \Everon\Logger\Plugin\Gelf\Abstra
      */
     public function requireLogLevel(): string
     {
-        if (static::METADATA['logLevel']['type'] === 'popo' && $this->logLevel === null) {
-            $popo = static::METADATA['logLevel']['default'];
-            $this->logLevel = new $popo;
-        }
+        $this->setupPopoProperty('logLevel');
 
         if ($this->logLevel === null) {
             throw new UnexpectedValueException('Required value of "logLevel" has not been set');
@@ -173,7 +164,7 @@ class GelfHttpLoggerPluginConfigurator extends \Everon\Logger\Plugin\Gelf\Abstra
 
     public function hasLogLevel(): bool
     {
-        return $this->logLevel !== null || ($this->logLevel !== null && array_key_exists('logLevel', $this->updateMap));
+        return $this->logLevel !== null;
     }
 
     /**
@@ -197,10 +188,7 @@ class GelfHttpLoggerPluginConfigurator extends \Everon\Logger\Plugin\Gelf\Abstra
      */
     public function requirePath(): string
     {
-        if (static::METADATA['path']['type'] === 'popo' && $this->path === null) {
-            $popo = static::METADATA['path']['default'];
-            $this->path = new $popo;
-        }
+        $this->setupPopoProperty('path');
 
         if ($this->path === null) {
             throw new UnexpectedValueException('Required value of "path" has not been set');
@@ -210,7 +198,7 @@ class GelfHttpLoggerPluginConfigurator extends \Everon\Logger\Plugin\Gelf\Abstra
 
     public function hasPath(): bool
     {
-        return $this->path !== null || ($this->path !== null && array_key_exists('path', $this->updateMap));
+        return $this->path !== null;
     }
 
     public function setPluginClass(?string $pluginClass): self
@@ -225,10 +213,7 @@ class GelfHttpLoggerPluginConfigurator extends \Everon\Logger\Plugin\Gelf\Abstra
 
     public function requirePluginClass(): string
     {
-        if (static::METADATA['pluginClass']['type'] === 'popo' && $this->pluginClass === null) {
-            $popo = static::METADATA['pluginClass']['default'];
-            $this->pluginClass = new $popo;
-        }
+        $this->setupPopoProperty('pluginClass');
 
         if ($this->pluginClass === null) {
             throw new UnexpectedValueException('Required value of "pluginClass" has not been set');
@@ -238,7 +223,7 @@ class GelfHttpLoggerPluginConfigurator extends \Everon\Logger\Plugin\Gelf\Abstra
 
     public function hasPluginClass(): bool
     {
-        return $this->pluginClass !== null || ($this->pluginClass !== null && array_key_exists('pluginClass', $this->updateMap));
+        return $this->pluginClass !== null;
     }
 
     /**
@@ -262,10 +247,7 @@ class GelfHttpLoggerPluginConfigurator extends \Everon\Logger\Plugin\Gelf\Abstra
      */
     public function requirePluginFactoryClass(): string
     {
-        if (static::METADATA['pluginFactoryClass']['type'] === 'popo' && $this->pluginFactoryClass === null) {
-            $popo = static::METADATA['pluginFactoryClass']['default'];
-            $this->pluginFactoryClass = new $popo;
-        }
+        $this->setupPopoProperty('pluginFactoryClass');
 
         if ($this->pluginFactoryClass === null) {
             throw new UnexpectedValueException('Required value of "pluginFactoryClass" has not been set');
@@ -275,7 +257,7 @@ class GelfHttpLoggerPluginConfigurator extends \Everon\Logger\Plugin\Gelf\Abstra
 
     public function hasPluginFactoryClass(): bool
     {
-        return $this->pluginFactoryClass !== null || ($this->pluginFactoryClass !== null && array_key_exists('pluginFactoryClass', $this->updateMap));
+        return $this->pluginFactoryClass !== null;
     }
 
     /**
@@ -299,10 +281,7 @@ class GelfHttpLoggerPluginConfigurator extends \Everon\Logger\Plugin\Gelf\Abstra
      */
     public function requirePort(): int
     {
-        if (static::METADATA['port']['type'] === 'popo' && $this->port === null) {
-            $popo = static::METADATA['port']['default'];
-            $this->port = new $popo;
-        }
+        $this->setupPopoProperty('port');
 
         if ($this->port === null) {
             throw new UnexpectedValueException('Required value of "port" has not been set');
@@ -312,7 +291,7 @@ class GelfHttpLoggerPluginConfigurator extends \Everon\Logger\Plugin\Gelf\Abstra
 
     public function hasPort(): bool
     {
-        return $this->port !== null || ($this->port !== null && array_key_exists('port', $this->updateMap));
+        return $this->port !== null;
     }
 
     /**
@@ -336,10 +315,7 @@ class GelfHttpLoggerPluginConfigurator extends \Everon\Logger\Plugin\Gelf\Abstra
      */
     public function requireShouldBubble(): bool
     {
-        if (static::METADATA['shouldBubble']['type'] === 'popo' && $this->shouldBubble === null) {
-            $popo = static::METADATA['shouldBubble']['default'];
-            $this->shouldBubble = new $popo;
-        }
+        $this->setupPopoProperty('shouldBubble');
 
         if ($this->shouldBubble === null) {
             throw new UnexpectedValueException('Required value of "shouldBubble" has not been set');
@@ -349,7 +325,7 @@ class GelfHttpLoggerPluginConfigurator extends \Everon\Logger\Plugin\Gelf\Abstra
 
     public function hasShouldBubble(): bool
     {
-        return $this->shouldBubble !== null || ($this->shouldBubble !== null && array_key_exists('shouldBubble', $this->updateMap));
+        return $this->shouldBubble !== null;
     }
 
     /**
@@ -373,10 +349,7 @@ class GelfHttpLoggerPluginConfigurator extends \Everon\Logger\Plugin\Gelf\Abstra
      */
     public function requireSslOptions(): GelfLoggerPluginSslOptions
     {
-        if (static::METADATA['sslOptions']['type'] === 'popo' && $this->sslOptions === null) {
-            $popo = static::METADATA['sslOptions']['default'];
-            $this->sslOptions = new $popo;
-        }
+        $this->setupPopoProperty('sslOptions');
 
         if ($this->sslOptions === null) {
             throw new UnexpectedValueException('Required value of "sslOptions" has not been set');
@@ -386,7 +359,7 @@ class GelfHttpLoggerPluginConfigurator extends \Everon\Logger\Plugin\Gelf\Abstra
 
     public function hasSslOptions(): bool
     {
-        return $this->sslOptions !== null || ($this->sslOptions !== null && array_key_exists('sslOptions', $this->updateMap));
+        return $this->sslOptions !== null;
     }
 
     #[\JetBrains\PhpStorm\ArrayShape(self::SHAPE_PROPERTIES)]
@@ -443,6 +416,11 @@ class GelfHttpLoggerPluginConfigurator extends \Everon\Logger\Plugin\Gelf\Abstra
     public function isNew(): bool
     {
         return empty($this->updateMap) === true;
+    }
+
+    public function listModifiedProperties(): array
+    {
+        return array_keys($this->updateMap);
     }
 
     public function requireAll(): self
@@ -511,5 +489,13 @@ class GelfHttpLoggerPluginConfigurator extends \Everon\Logger\Plugin\Gelf\Abstra
         }
 
         return $this;
+    }
+
+    protected function setupPopoProperty($propertyName): void
+    {
+        if (static::METADATA[$propertyName]['type'] === 'popo' && $this->$propertyName === null) {
+            $popo = static::METADATA[$propertyName]['default'];
+            $this->$propertyName = new $popo;
+        }
     }
 }
