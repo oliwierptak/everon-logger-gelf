@@ -6,7 +6,7 @@
     "require": {
         "php": "^8",
         "everon/logger": "^4",
-        "graylog2/gelf-php": "^1.6"
+        "graylog2/gelf-php": "^1.7"
     },
     "require-dev": {
         "ext-json": "*",

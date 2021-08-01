@@ -22,8 +22,7 @@ class GelfTest extends TestCase
     {
         $gelfPluginConfigurator = (new GelfLoggerPluginConfigurator())->requireHttpConfigurator()
             ->setLogLevel('info')
-            ->setHost($this->graylogHost)
-            ->setPort(12202);
+            ->setHost($this->graylogHost);
 
         $configurator = (new LoggerConfigurator())
             ->addPluginConfigurator($gelfPluginConfigurator);
@@ -45,7 +44,7 @@ class GelfTest extends TestCase
             ->setIgnoreTransportErrors(false)
             ->setLogLevel('info')
             ->setHost($this->graylogHost)
-            ->setPort(12202)
+            ->setPort(12203)
             ->requireSslOptions()
             ->setUseSsl(true);
 
@@ -63,8 +62,7 @@ class GelfTest extends TestCase
     {
         $gelfPluginConfigurator = (new GelfLoggerPluginConfigurator())->requireTcpConfigurator()
             ->setLogLevel('info')
-            ->setHost($this->graylogHost)
-            ->setPort(5555);
+            ->setHost($this->graylogHost);
 
         $configurator = (new LoggerConfigurator())
             ->addPluginConfigurator($gelfPluginConfigurator);
