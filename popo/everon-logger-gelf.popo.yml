@@ -1,9 +1,13 @@
+$:
+  config:
+    namespace: Everon\Shared\LoggerGelf\Configurator\Plugin
+
 EveronLoggerGelf:
   GelfLoggerPluginConfigurator:
     default:
-      httpConfigurator: \Everon\Logger\Configurator\Plugin\GelfHttpLoggerPluginConfigurator::class
-      tcpConfigurator: \Everon\Logger\Configurator\Plugin\GelfTcpLoggerPluginConfigurator::class
-      udpConfigurator: \Everon\Logger\Configurator\Plugin\GelfUdpLoggerPluginConfigurator::class
+      httpConfigurator: \Everon\Shared\LoggerGelf\Configurator\Plugin\GelfHttpLoggerPluginConfigurator::class
+      tcpConfigurator: \Everon\Shared\LoggerGelf\Configurator\Plugin\GelfTcpLoggerPluginConfigurator::class
+      udpConfigurator: \Everon\Shared\LoggerGelf\Configurator\Plugin\GelfUdpLoggerPluginConfigurator::class
     property: [
       {name: httpConfigurator, type: popo, comment: "HTTP related options."},
       {name: tcpConfigurator, type: popo, comment: "TCP related options."},
@@ -26,46 +30,50 @@ EveronLoggerGelf:
 EveronLogger:
   GelfHttpLoggerPluginConfigurator:
     config:
-      extend: \Everon\Logger\Plugin\Gelf\AbstractGelfSslPluginConfigurator::class
+      extend: \Everon\LoggerGelf\Configurator\AbstractGelfSslPluginConfigurator::class
     default:
-      pluginClass: \Everon\Logger\Plugin\GelfHttp\GelfHttpLoggerPlugin::class
+      pluginClass: \Everon\LoggerGelf\Plugin\GelfHttp\GelfHttpLoggerPlugin::class
       ignoreTransportErrors: true
-      host: \Gelf\Transport\HttpTransport::DEFAULT_HOST
-      port: \Gelf\Transport\HttpTransport::DEFAULT_PORT
-      path: \Gelf\Transport\HttpTransport::DEFAULT_PATH
+      host: 127.0.0.1
+      port: 12202
+      autoSslPort: 443
+      path: /gelf
       sslOptions: GelfLoggerPluginSslOptions::class
     property: [
       {name: ignoreTransportErrors, type: bool, comment: "A wrapper for any AbstractTransport to ignore any kind of errors"},
       {name: host, comment: "when NULL or empty default-host is used"},
       {name: port, type: int, comment: "when NULL or empty default-port is used"},
+      {name: autoSslPort, type: int},
       {name: path, comment: "when NULL or empty default-path is used"},
       {name: sslOptions, type: popo, comment: "when useSsl is false, the SSL is not used"},
     ]}}
 
   GelfTcpLoggerPluginConfigurator:
     config:
-      extend: \Everon\Logger\Plugin\Gelf\AbstractGelfSslPluginConfigurator::class
+      extend: \Everon\LoggerGelf\Configurator\AbstractGelfSslPluginConfigurator::class
     default:
-      pluginClass: \Everon\Logger\Plugin\GelfTcp\GelfTcpLoggerPlugin::class
+      pluginClass: \Everon\LoggerGelf\Plugin\GelfTcp\GelfTcpLoggerPlugin::class
       ignoreTransportErrors: true
-      host: \Gelf\Transport\TcpTransport::DEFAULT_HOST
-      port: \Gelf\Transport\TcpTransport::DEFAULT_PORT
+      host: 127.0.0.1
+      port: 12201
+      autoSslPort: 12202
       sslOptions: GelfLoggerPluginSslOptions::class
     property: [
       {name: ignoreTransportErrors, type: bool, comment: "A wrapper for any AbstractTransport to ignore any kind of errors"},
       {name: host, comment: "when NULL or empty default-host is used"},
       {name: port, type: int, comment: "when NULL or empty default-port is used"},
+      {name: autoSslPort, type: int},
       {name: sslOptions, type: popo, comment: "when useSsl is false, the SSL is not used"},
     ]}}
 
   GelfUdpLoggerPluginConfigurator:
     config:
-      extend: \Everon\Logger\Plugin\Gelf\AbstractGelfPluginConfigurator::class
+      extend: \Everon\LoggerGelf\Configurator\AbstractGelfPluginConfigurator::class
     default:
-      pluginClass: \Everon\Logger\Plugin\GelfUdp\GelfUdpLoggerPlugin::class
+      pluginClass: \Everon\LoggerGelf\Plugin\GelfUdp\GelfUdpLoggerPlugin::class
       ignoreTransportErrors: true
-      host: \Gelf\Transport\UdpTransport::DEFAULT_HOST
-      port: \Gelf\Transport\UdpTransport::DEFAULT_PORT
+      host: 127.0.0.1
+      port: 12201
       chunkSize: \Gelf\Transport\UdpTransport::CHUNK_SIZE_WAN
     property: [
       {name: ignoreTransportErrors, type: bool, comment: "A wrapper for any AbstractTransport to ignore any kind of errors"},

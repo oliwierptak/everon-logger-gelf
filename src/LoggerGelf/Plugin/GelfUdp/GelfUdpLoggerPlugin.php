@@ -2,14 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace Everon\Logger\Plugin\GelfUdp;
+namespace Everon\LoggerGelf\Plugin\GelfUdp;
 
-use Everon\Logger\Plugin\Gelf\AbstractGelfLoggerPlugin;
+use Everon\LoggerGelf\Plugin\Gelf\AbstractGelfLoggerPlugin;
 use Gelf\Transport\AbstractTransport;
 use Gelf\Transport\UdpTransport;
 
 /**
- * @property \Everon\Logger\Configurator\Plugin\GelfUdpLoggerPluginConfigurator $configurator
+ * @property \Everon\Shared\LoggerGelf\Configurator\Plugin\GelfUdpLoggerPluginConfigurator $configurator
  */
 class GelfUdpLoggerPlugin extends AbstractGelfLoggerPlugin
 {
@@ -21,9 +21,9 @@ class GelfUdpLoggerPlugin extends AbstractGelfLoggerPlugin
     protected function buildTransport(): AbstractTransport
     {
         return new UdpTransport(
-            $this->configurator->getHost(),
-            $this->configurator->getPort(),
-            $this->configurator->getChunkSize()
+            (string)$this->configurator->getHost(),
+            (int)$this->configurator->getPort(),
+            (int)$this->configurator->getChunkSize(),
         );
     }
 

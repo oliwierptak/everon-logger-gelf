@@ -2,11 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace Everon\Logger\Plugin\Gelf;
+namespace Everon\LoggerGelf\Configurator;
 
-use Everon\Logger\Configurator\Plugin\GelfLoggerPluginSslOptions;
+use Everon\Shared\LoggerGelf\Configurator\Plugin\GelfLoggerPluginSslOptions;
 
 abstract class AbstractGelfSslPluginConfigurator extends AbstractGelfPluginConfigurator
 {
     abstract public function getSslOptions(): ?GelfLoggerPluginSslOptions;
+
+    abstract public function requireSslOptions(): GelfLoggerPluginSslOptions;
 }

@@ -1,89 +1,89 @@
 # EveronLoggerGelf
 
-A plugin with [Graylog2](https://github.com/bzikarsky/gelf-php) handler for [EveronLogger](https://github.com/oliwierptak/everon-logger).
+A plugin with [Graylog2](https://github.com/bzikarsky/gelf-php) handler
+for [EveronLogger](https://github.com/oliwierptak/everon-logger).
 
 - GelfHttp
 - GelfTcp
 - GelfUdp
- 
-_Note:_ Gelf offers several transport protocols, and could be configured via related properties of `GelfLoggerPluginConfigurator`.
+
+_Note:_ Gelf offers several transport protocols, and could be configured via related properties
+of `GelfLoggerPluginConfigurator`.
 
 ## Plugins
 
 ### GelfHttp
-    
+
 - Configurator
 
-    `Everon\Logger\Configurator\Plugin\GelfHttpLoggerPluginConfigurator`
- 
+  `Everon\Shared\LoggerGelf\Configurator\Plugin\GelfHttpLoggerPluginConfigurator`
+
 - Default Options
 
     ```php
-    'pluginClass' => \Everon\Logger\Plugin\GelfHttp\GelfHttpLoggerPlugin::class,
+    'pluginClass' => \Everon\LoggerGelf\Plugin\GelfHttp\GelfHttpLoggerPlugin::class,
     'pluginFactoryClass' => NULL,
-    'logLevel' => 'debug',
+    'logLevel' => \Monolog\Level::Debug,
     'shouldBubble' => true,
     'ignoreTransportErrors' => true,
-    'host' => \Gelf\Transport\HttpTransport::DEFAULT_HOST,
-    'port' => \Gelf\Transport\HttpTransport::DEFAULT_PORT,
-    'path' => \Gelf\Transport\HttpTransport::DEFAULT_PATH,
+    'host' => '127.0.0.1',
+    'port' => 12202,
+    'path' => '/gelf',
     'sslOptions' => NULL,
     ```
-  
+
 - Plugin
 
-  `Everon\Logger\Plugin\GelfHttp\GelfHttpLoggerPlugin`
-  
+  `Everon\LoggerGelf\Plugin\GelfHttp\GelfHttpLoggerPlugin`
 
 ### GelfTcp
-    
+
 - Configurator
 
-    `Everon\Logger\Configurator\Plugin\GelfTcpLoggerPluginConfigurator`
-   
+  `Everon\Shared\LoggerGelf\Configurator\Plugin\GelfTcpLoggerPluginConfigurator`
+
 - Default Options
 
     ```php
-    'pluginClass' => \Everon\Logger\Plugin\GelfTcp\GelfTcpLoggerPlugin::class,
+    'pluginClass' => \Everon\LoggerGelf\Plugin\GelfTcp\GelfTcpLoggerPlugin::class,
     'pluginFactoryClass' => NULL,
-    'logLevel' => 'debug',
+    'logLevel' => \Monolog\Level::Debug,
     'shouldBubble' => true,
     'ignoreTransportErrors' => true,
-    'host' => \Gelf\Transport\TcpTransport::DEFAULT_HOST,
-    'port' => \Gelf\Transport\TcpTransport::DEFAULT_PORT,
+    'host' => '127.0.0.1',
+    'port' => 12201,
     'sslOptions' => NULL,
     ```
-  
+
 - Plugin
 
-  `Everon\Logger\Plugin\GelfTcp\GelfTcpLoggerPlugin`
+  `Everon\LoggerGelf\Plugin\GelfTcp\GelfTcpLoggerPlugin`
 
-  
 ### GelfUdp
-    
+
 - Configurator
 
-    `Everon\Logger\Configurator\Plugin\GelfUdpLoggerPluginConfigurator`
- 
+  `Everon\Shared\LoggerGelf\Configurator\Plugin\GelfUdpLoggerPluginConfigurator`
+
 - Default Options for `GelfUdpLoggerPluginConfigurator`
 
     ```php
-    'pluginClass' => \Everon\Logger\Plugin\GelfUdp\GelfUdpLoggerPlugin::class,
+    'pluginClass' => \Everon\LoggerGelf\Plugin\GelfUdp\GelfUdpLoggerPlugin::class,
     'pluginFactoryClass' => NULL,
-    'logLevel' => 'debug',
+    'logLevel' => \Monolog\Level::Debug,
     'shouldBubble' => true,
     'ignoreTransportErrors' => true,
-    'host' => \Gelf\Transport\UdpTransport::DEFAULT_HOST,
-    'port' => \Gelf\Transport\UdpTransport::DEFAULT_PORT,
+    'host' => '127.0.0.1',
+    'port' => 12201,
     'chunkSize' => \Gelf\Transport\UdpTransport::CHUNK_SIZE_WAN,
     ```
-  
+
 - Plugin
 
-  `Everon\Logger\Plugin\GelfUdp\GelfUdpLoggerPlugin`
-  
-  
+  `Everon\LoggerGelf\Plugin\GelfUdp\GelfUdpLoggerPlugin`
+
 ### Gelf SSL Options
+
 - Default Options for `GelfLoggerPluginSslOptions`
 
     ```php
@@ -97,22 +97,23 @@ _Note:_ Gelf offers several transport protocols, and could be configured via rel
 - Usage
 
     ```php
-    use Everon\Logger\Configurator\Plugin\GelfHttpLoggerPluginConfigurator;
-    use Everon\Logger\Configurator\Plugin\GelfTcpLoggerPluginConfigurator;
-    use Everon\Logger\Configurator\Plugin\GelfUdpLoggerPluginConfigurator;
-    use Everon\Logger\Configurator\Plugin\LoggerConfigurator;
+    use Everon\Shared\Logger\Configurator\Plugin\LoggerConfigurator;
     use Everon\Logger\EveronLoggerFacade;
+    use Everon\Shared\LoggerGelf\Configurator\Plugin\GelfHttpLoggerPluginConfigurator;
+    use Everon\Shared\LoggerGelf\Configurator\Plugin\GelfTcpLoggerPluginConfigurator;
+    use Everon\Shared\LoggerGelf\Configurator\Plugin\GelfUdpLoggerPluginConfigurator;
+    use Monolog\Level;
   
     $gelfHttpPluginConfigurator = (new GelfHttpLoggerPluginConfigurator)
-        ->setLogLevel('debug')
+        ->setLogLevel(Level::Debug)
         ->setHost('graylog.host.http');
   
     $gelfTcpPluginConfigurator = (new GelfTcpLoggerPluginConfigurator)
-        ->setLogLevel('warning')
+        ->setLogLevel(Level::Warning)
         ->setHost('graylog.host.tcp');
   
     $gelfUdpPluginConfigurator = (new GelfUdpLoggerPluginConfigurator)
-        ->setLogLevel('info')
+        ->setLogLevel(Level::Info)
         ->setHost('graylog.host.udp');
     
     $configurator = (new LoggerConfigurator)
@@ -127,9 +128,8 @@ _Note:_ Gelf offers several transport protocols, and could be configured via rel
 
 ## Requirements
 
-- PHP v8.x
-
-_Note_: Use v2.x for compatibility with PHP v7.4.
+- PHP v8.1.x
+- Monolog v3.x
 
 ## Installation
 

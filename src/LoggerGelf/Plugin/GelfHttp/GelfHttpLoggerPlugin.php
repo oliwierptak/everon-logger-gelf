@@ -2,14 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace Everon\Logger\Plugin\GelfHttp;
+namespace Everon\LoggerGelf\Plugin\GelfHttp;
 
-use Everon\Logger\Plugin\Gelf\AbstractGelfLoggerPlugin;
+use Everon\LoggerGelf\Plugin\Gelf\AbstractGelfLoggerPlugin;
 use Gelf\Transport\AbstractTransport;
 use Gelf\Transport\HttpTransport;
 
 /**
- * @property \Everon\Logger\Configurator\Plugin\GelfHttpLoggerPluginConfigurator $configurator
+ * @property \Everon\Shared\LoggerGelf\Configurator\Plugin\GelfHttpLoggerPluginConfigurator $configurator
  */
 class GelfHttpLoggerPlugin extends AbstractGelfLoggerPlugin
 {
@@ -20,13 +20,13 @@ class GelfHttpLoggerPlugin extends AbstractGelfLoggerPlugin
 
     protected function buildTransport(): AbstractTransport
     {
-        $sslOptions = $this->buildSslOptions($this->configurator);
+        $sslOptions = $this->buildSslOptions($this->configurator->getSslOptions());
 
         return new HttpTransport(
-            $this->configurator->getHost(),
-            $this->configurator->getPort(),
-            $this->configurator->getPath(),
-            $sslOptions
+            (string)$this->configurator->getHost(),
+            (int)$this->configurator->getPort(),
+            (string)$this->configurator->getPath(),
+            $sslOptions,
         );
     }
 

@@ -2,9 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace Everon\Logger\Plugin\Gelf;
+namespace Everon\LoggerGelf\Plugin\Gelf;
 
 use Everon\Logger\Contract\Plugin\LoggerPluginInterface;
+use Everon\LoggerGelf\Configurator\AbstractGelfPluginConfigurator;
+use Everon\Shared\LoggerGelf\Configurator\Plugin\GelfLoggerPluginSslOptions;
 use Gelf\Publisher;
 use Gelf\PublisherInterface;
 use Gelf\Transport\AbstractTransport;
@@ -17,9 +19,7 @@ abstract class AbstractGelfLoggerPlugin implements LoggerPluginInterface
 {
     abstract protected function buildTransport(): AbstractTransport;
 
-    public function __construct(protected AbstractGelfPluginConfigurator $configurator)
-    {
-    }
+    public function __construct(protected AbstractGelfPluginConfigurator $configurator) {}
 
     public function buildHandler(): HandlerInterface
     {
@@ -29,7 +29,7 @@ abstract class AbstractGelfLoggerPlugin implements LoggerPluginInterface
         return new GelfHandler(
             $publisher,
             $this->configurator->requireLogLevel(),
-            $this->configurator->shouldBubble()
+            (bool)$this->configurator->shouldBubble(),
         );
     }
 
@@ -48,25 +48,25 @@ abstract class AbstractGelfLoggerPlugin implements LoggerPluginInterface
         return new Publisher($transport);
     }
 
-    protected function buildSslOptions(AbstractGelfSslPluginConfigurator $pluginConfigurator): ?SslOptions
+    protected function buildSslOptions(?GelfLoggerPluginSslOptions $configurator): ?SslOptions
     {
-        if (!$pluginConfigurator->requireSslOptions()->useSsl()) {
+        if (!$configurator || !$configurator->useSsl()) {
             return null;
         }
 
         $sslOptions = new SslOptions();
 
         $sslOptions->setVerifyPeer(
-            $pluginConfigurator->requireSslOptions()->verifyPeer()
+            (bool)$configurator->verifyPeer(),
         );
         $sslOptions->setAllowSelfSigned(
-            $pluginConfigurator->requireSslOptions()->allowSelfSigned()
+            (bool)$configurator->allowSelfSigned(),
         );
         $sslOptions->setCaFile(
-            $pluginConfigurator->requireSslOptions()->getCaFile()
+            $configurator->getCaFile(),
         );
         $sslOptions->setCiphers(
-            $pluginConfigurator->requireSslOptions()->getCiphers()
+            $configurator->getCiphers(),
         );
 
         return $sslOptions;
