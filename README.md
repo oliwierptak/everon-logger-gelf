@@ -1,5 +1,7 @@
 # EveronLoggerGelf
 
+[![Build and run tests](https://github.com/oliwierptak/everon-logger-gelf/actions/workflows/main.yml/badge.svg)](https://github.com/oliwierptak/everon-logger-gelf/actions/workflows/main.yml)
+
 A plugin with [Graylog2](https://github.com/bzikarsky/gelf-php) handler
 for [EveronLogger](https://github.com/oliwierptak/everon-logger).
 
