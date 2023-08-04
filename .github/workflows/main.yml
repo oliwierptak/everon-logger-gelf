@@ -15,9 +15,7 @@ jobs:
       - name: Build the docker-compose stack
         run: docker-compose -f docker-compose-graylog.yml --profile logger up
       - name: Configure graylog
-        run:  docker-compose -f docker-compose-graylog.yml --profile populate-mongo run populate-mongo
-        with:
-          time: '30s'
+        run: sleep 30 && docker-compose -f docker-compose-graylog.yml --profile populate-mongo run populate-mongo
       - name: Install dependencies
         run: docker-compose run cli composer install
       - name: Static code analysis
