@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build the docker-compose stack
-        run: docker-compose -f docker-compose-graylog.yml --profile logger up
+        run: docker-compose -f docker-compose-graylog.yml --profile logger up -d
       - name: Configure graylog
         run: sleep 30 && docker-compose -f docker-compose-graylog.yml --profile populate-mongo run populate-mongo
       - name: Install dependencies
