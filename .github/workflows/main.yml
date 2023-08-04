@@ -1,0 +1,26 @@
+name: Build and run tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the docker-compose stack
+        run: docker-compose -f docker-compose-graylog.yml --profile logger up
+      - name: Configure graylog
+        run:  docker-compose -f docker-compose-graylog.yml --profile populate-mongo run populate-mongo
+        with:
+          time: '30s'
+      - name: Install dependencies
+        run: docker-compose run cli composer install
+      - name: Static code analysis
+        run: docker-compose run cli composer phpstan
+      - name: Run the tests
+        run: docker-compose run cli composer tests
