@@ -11,7 +11,7 @@ services:
     networks:
       - localdev
     command:
-      /graylog-config/graylog.sh
+      sh /graylog-config/graylog.sh
 
   mongo:
     #platform: linux/arm64/v8
